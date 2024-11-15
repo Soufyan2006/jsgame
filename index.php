@@ -6,8 +6,6 @@
   <link href="./src/output.css" rel="stylesheet">
 </head>
 <body>
-  <h1 class="font-mono">
-   Focus6
-  </h1>
+
 </body>
 </html>
