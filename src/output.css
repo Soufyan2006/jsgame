@@ -553,21 +553,3 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
-
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-.font-bold {
-  font-weight: 700;
-}
-
-.underline {
-  text-decoration-line: underline;
-}
