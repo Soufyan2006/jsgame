@@ -7,8 +7,6 @@
   <link rel="icon" type="image/x-icon" href="./src/img/favicon-8.ico">
 </head>
 <body>
-  <h1 class="text-3xl font-bold underline bg-black">
-    Hello world!
-  </h1>
+
 </body>
 </html>
