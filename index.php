@@ -6,8 +6,6 @@
   <link href="./src/output.css" rel="stylesheet">
 </head>
 <body>
-  <h1 class="text-3xl font-bold underline bg-black">
-    Hello world!
-  </h1>
+
 </body>
 </html>
