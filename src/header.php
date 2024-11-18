@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./src/output.css" rel="stylesheet">
     <title>header</title>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -19,7 +20,7 @@
                 <li><a href="contact.php" class="hover:text-black border-l border-white pl-4">Contact</a></li>
             </ul>
         </nav>
-        <a href="index.php" class="absolute right-4 mr-6">
+        <a href="tel:06456789" class="absolute right-4 mr-6">
             0612345678
         </a>
     </div>
