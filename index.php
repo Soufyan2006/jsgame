@@ -1,4 +1,4 @@
-<?php include_once 'src/header.php'; ?>
+<?php include_once 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,4 +11,4 @@
     <h1 class="text-3xl text-center mt-8">Welcome to CodeWave!</h1>
 </body>
 </html>
-<?php include_once 'src/footer.php'; ?>
+<?php include_once 'footer.php'; ?>
