@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,15 +20,15 @@
             <nav>
                 <ul class="flex space-x-4">
                     <li><a href="index.php" class="hover:text-black">Home</a></li>
-                    <li><a href="spiegelspel.php" class="hover:text-black border-l border-white pl-4">Spiegelspelconcept</a></li>
+                    <li><a href="spiegelspel.php"
+                            class="hover:text-black border-l border-white pl-4">Spiegelspelconcept</a></li>
                     <li><a href="dienst.php" class="hover:text-black border-l border-white pl-4">Dienstregeling</a></li>
                     <li><a href="contact.php" class="hover:text-black border-l border-white pl-4">Contact</a></li>
                 </ul>
             </nav>
-
             <a href="tel:06456789" class="text-xl font-medium hover:text-black mr-8">
                 0612345678
             </a>
 
-        </div>
+
     </header>
