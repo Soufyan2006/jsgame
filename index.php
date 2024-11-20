@@ -9,19 +9,20 @@
     <title>Focus6</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
+
 <body>
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
 
-
-    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+    <div class="relative h-[20rem] overflow-hidden md:h-[600px]">
         <div class="duration-700 ease-in-out" data-carousel-item>
-            <img src="place.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="place.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="eerste image">
         </div>
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="place1.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="place1.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="tweedeimage">
         </div>
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="place2.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="place2.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="derde image">
         </div>
     </div>
 
@@ -63,28 +64,27 @@
         { position: 2, el: document.querySelectorAll('[data-carousel-item]')[2] }
     ];
 
-    const options = {
-        defaultPosition: 0, 
-        interval: 3000, 
-        onNext: () => console.log('Next slide shown'),
-        onPrev: () => console.log('Previous slide shown'),
+    let currentPosition = 0;
+
+    const showNextSlide = () => {
+        items[currentPosition].el.classList.add('hidden');
+        currentPosition = (currentPosition + 1) % items.length;
+        items[currentPosition].el.classList.remove('hidden');
     };
 
     
-    document.querySelector('[data-carousel-prev]').addEventListener('click', () => {
-        let currentItem = items.find(item => !item.el.classList.contains('hidden'));
-        let nextItem = items[(currentItem.position - 1 + items.length) % items.length];
-        currentItem.el.classList.add('hidden');
-        nextItem.el.classList.remove('hidden');
-    });
+    const showPrevSlide = () => {
+        items[currentPosition].el.classList.add('hidden');
+        currentPosition = (currentPosition - 1 + items.length) % items.length;
+        items[currentPosition].el.classList.remove('hidden');
+    };
 
-    document.querySelector('[data-carousel-next]').addEventListener('click', () => {
-        let currentItem = items.find(item => !item.el.classList.contains('hidden'));
-        let nextItem = items[(currentItem.position + 1) % items.length];
-        currentItem.el.classList.add('hidden');
-        nextItem.el.classList.remove('hidden');
-    });
+    
+    document.querySelector('[data-carousel-prev]').addEventListener('click', showPrevSlide);
+    document.querySelector('[data-carousel-next]').addEventListener('click', showNextSlide);
 
+    
+    setInterval(showNextSlide, 10000);
 </script>
 
 <?php include_once 'footer.php'; ?>
