@@ -5,6 +5,26 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+// Create a video element
+const video = document.createElement('video');
+video.src = './img/sneeuw-ezgif.com-gif-to-mp4-converter.mp4'; // Path to your video file
+video.loop = true; // Loop the video
+video.muted = true; // Mute if there's audio
+video.play(); // Start playing the video
+
+// Create a video texture
+const videoTexture = new THREE.VideoTexture(video);
+
+// Set the video texture as the scene's background
+scene.background = videoTexture;
+
+// Ground plane
+const planeGeometry = new THREE.PlaneGeometry(100, 100);
+const planeMaterial = new THREE.MeshBasicMaterial({ color: 0x008000 });
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.rotation.x = -Math.PI / 2;
+scene.add(plane);
+
 // Sleigh setup
 const sleighGeometry = new THREE.BoxGeometry(1, 0.5, 2);
 const sleighMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
@@ -18,6 +38,66 @@ const enemyMaterial = new THREE.MeshBasicMaterial({ color: 0xAE08AE });
 const enemy = new THREE.Mesh(enemyGeometry, enemyMaterial);
 enemy.position.set(5, 0.5, -5);
 scene.add(enemy);
+
+// Gift setup
+function createGift() {
+  const giftGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+  const giftMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
+  const gift = new THREE.Mesh(giftGeometry, giftMaterial);
+  gift.position.set(
+    (Math.random() - 0.5) * 20, // Random x position
+    0.5,                       // Y position above the ground
+    (Math.random() - 0.5) * 20 // Random z position
+  );
+  scene.add(gift);
+  return gift;
+}
+
+let currentGift = createGift();
+const collectedGifts = []; // Array to store collected gifts
+
+function checkCollisions() {
+  if (sleigh.position.distanceTo(currentGift.position) < 1) {
+    // Remove the current gift
+    scene.remove(currentGift);
+
+    // Add the gift to the collectedGifts array
+    collectedGifts.push(currentGift);
+
+    // Ensure it stays in the scene
+    scene.add(currentGift);
+
+    console.log('Je hebt er eentje! ');
+
+    // Spawn a new gift
+    currentGift = createGift();
+  }
+}
+
+function updateCollectedGifts() {
+  let previousPosition = sleigh.position.clone(); // Start with the sleigh's position
+
+  // Iterate through the collected gifts
+  for (let i = 0; i < collectedGifts.length; i++) {
+    const gift = collectedGifts[i];
+
+    // Calculate target position (space gifts behind each other)
+    const offset = new THREE.Vector3(0, 0, -(i + 1) * 1.5); // Adjust spacing
+    const targetPosition = previousPosition.clone().add(offset);
+
+    // Smoothly interpolate gift position
+    gift.position.lerp(targetPosition, 0.1);
+
+    // Update previous position to current gift's position
+    previousPosition = gift.position.clone();
+  }
+}
+
+function animateGifts() {
+  for (let i = 0; i < collectedGifts.length; i++) {
+    collectedGifts[i].rotation.y += 0.05; // Spin the gift
+  }
+}
 
 // Lighting
 const light = new THREE.AmbientLight(0xffffff, 1);
@@ -91,7 +171,7 @@ function moveEnemyTowardsSleigh() {
     timerDisplay.innerText = `Final Time: ${elapsedTime.toFixed(2)}s`;
 
     const gameOverText = document.createElement('div');
-    gameOverText.innerHTML = "<h1 style='color: white;'> oh oh oh Game Over!</h1>";
+    gameOverText.innerHTML = "<h1 style='color: white;'> Oh oh oh! Game Over!</h1>";
     gameOverText.style.position = 'absolute';
     gameOverText.style.top = '50%';
     gameOverText.style.left = '50%';
@@ -122,11 +202,21 @@ function animate() {
     // Enemy movement
     moveEnemyTowardsSleigh();
 
+    // Collision detection
+    checkCollisions();
+
+    // Update collected gifts
+    updateCollectedGifts();
+
+    // Spin gifts
+    animateGifts();
+
     // Camera follows sleigh
     camera.position.set(sleigh.position.x, sleigh.position.y + 5, sleigh.position.z + 10);
     camera.lookAt(sleigh.position);
   }
 
+  // Render the scene
   renderer.render(scene, camera);
 }
 
