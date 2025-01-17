@@ -81,7 +81,7 @@ startDifficultyTimer();
 // Adjust the spawnEnemy interval
 setInterval(() => {
   if (!gameOver) {
-    spawnEnemy();
+    spawnEnemy(); 
   }
 }, spawnRate);
 
